@@ -67,7 +67,7 @@
 #include "bsp_btn_ble.h"
 
 #include "User_Common_Func.h"
-
+#include "ble_system_set.h"
 
 
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 0                                           /**< Include the service_changed characteristic. If not enabled, the server's database cannot be changed for the lifetime of the device. */
@@ -136,11 +136,13 @@ static void gap_params_init(void)
     uint32_t                err_code;
     ble_gap_conn_params_t   gap_conn_params;
     ble_gap_conn_sec_mode_t sec_mode;
-uint8_t device_addr[6];
+    uint8_t device_addr[6];
     char device_name[50],*string;
     
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
 
+    
+    
     
     
     get_mac_addr(device_addr);
@@ -321,6 +323,7 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
             err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);
             APP_ERROR_CHECK(err_code);
             m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
+
             break; // BLE_GAP_EVT_CONNECTED
 
         case BLE_GAP_EVT_DISCONNECTED:
@@ -653,6 +656,8 @@ int main(void)
     // Initialize.
     APP_TIMER_INIT(APP_TIMER_PRESCALER, APP_TIMER_OP_QUEUE_SIZE, false);
     uart_init();
+    
+    sd_ble_gap_tx_power_set(4);
 
     buttons_leds_init(&erase_bonds);
     ble_stack_init();

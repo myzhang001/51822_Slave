@@ -62,3 +62,4 @@
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_common.h
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_os.h
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_macros.h
+.\_build\main.o: ..\arm5_no_packs\ble_system_set.h

@@ -432,6 +432,11 @@
               <FileType>1</FileType>
               <FilePath>.\User_Common_Func.c</FilePath>
             </File>
+            <File>
+              <FileName>ble_system_set.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ble_system_set.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -2462,6 +2467,11 @@
               <FileName>User_Common_Func.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\User_Common_Func.c</FilePath>
+            </File>
+            <File>
+              <FileName>ble_system_set.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ble_system_set.c</FilePath>
             </File>
           </Files>
         </Group>

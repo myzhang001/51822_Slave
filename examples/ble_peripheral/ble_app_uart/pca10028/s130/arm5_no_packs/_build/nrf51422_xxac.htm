@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\_build\nrf51422_xxac.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\_build\nrf51422_xxac.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Mar 13 16:47:41 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050169: Last Updated: Tue Mar 13 17:44:09 2018
 <BR><P>
 <H3>Maximum Stack Usage =        520 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -824,7 +824,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SWI2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 288 bytes, Stack size 40 bytes, main.o(i.main))
+<P><STRONG><a name="[1f]"></a>main</STRONG> (Thumb, 292 bytes, Stack size 40 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 520<LI>Call Chain = main &rArr; advertising_init &rArr; ble_advertising_init &rArr; ble_advdata_set &rArr; adv_data_encode &rArr; uuid_list_encode &rArr; uuid_list_sized_encode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bsp_init
@@ -999,7 +999,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nrf_drv_clock_init
 </UL>
 
-<P><STRONG><a name="[2c]"></a>uart_event_handle</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, main.o(i.uart_event_handle))
+<P><STRONG><a name="[2c]"></a>uart_event_handle</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, main.o(i.uart_event_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = uart_event_handle &rArr; app_uart_get &rArr; nrf_drv_uart_rx &rArr; nrf_drv_uart_rx_for_uart &rArr; rx_byte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_nus_string_send
@@ -1011,7 +1011,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[56]"></a>advertising_init</STRONG> (Thumb, 112 bytes, Stack size 200 bytes, main.o(i.advertising_init))
+<P><STRONG><a name="[56]"></a>advertising_init</STRONG> (Thumb, 114 bytes, Stack size 200 bytes, main.o(i.advertising_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 480<LI>Call Chain = advertising_init &rArr; ble_advertising_init &rArr; ble_advdata_set &rArr; adv_data_encode &rArr; uuid_list_encode &rArr; uuid_list_sized_encode
 </UL>
 <BR>[Calls]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ble_advertising_init
