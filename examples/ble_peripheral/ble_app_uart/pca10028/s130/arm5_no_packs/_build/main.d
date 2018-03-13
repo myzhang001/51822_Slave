@@ -58,3 +58,7 @@
 .\_build\main.o: ..\..\..\..\..\..\components\boards\boards.h
 .\_build\main.o: ..\..\..\..\..\..\components\boards\pca10028.h
 .\_build\main.o: ..\..\..\..\..\..\components\libraries\bsp\bsp_btn_ble.h
+.\_build\main.o: ..\arm5_no_packs\User_Common_Func.h
+.\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_common.h
+.\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_os.h
+.\_build\main.o: ..\..\..\..\..\..\components\libraries\util\sdk_macros.h

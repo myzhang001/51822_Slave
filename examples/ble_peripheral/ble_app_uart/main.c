@@ -66,6 +66,10 @@
 #include "bsp.h"
 #include "bsp_btn_ble.h"
 
+#include "User_Common_Func.h"
+
+
+
 #define IS_SRVC_CHANGED_CHARACT_PRESENT 0                                           /**< Include the service_changed characteristic. If not enabled, the server's database cannot be changed for the lifetime of the device. */
 
 #if (NRF_SD_BLE_API_VERSION == 3)
@@ -77,11 +81,11 @@
 #define CENTRAL_LINK_COUNT              0                                           /**< Number of central links used by the application. When changing this number remember to adjust the RAM settings*/
 #define PERIPHERAL_LINK_COUNT           1                                           /**< Number of peripheral links used by the application. When changing this number remember to adjust the RAM settings*/
 
-#define DEVICE_NAME                     "Nordic_UART"                               /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "SOMPUTON_08A"                               /**< Name of device. Will be included in the advertising data. */
 #define NUS_SERVICE_UUID_TYPE           BLE_UUID_TYPE_VENDOR_BEGIN                  /**< UUID type for the Nordic UART Service (vendor specific). */
 
 #define APP_ADV_INTERVAL                64                                          /**< The advertising interval (in units of 0.625 ms. This value corresponds to 40 ms). */
-#define APP_ADV_TIMEOUT_IN_SECONDS      180                                         /**< The advertising timeout (in units of seconds). */
+#define APP_ADV_TIMEOUT_IN_SECONDS      0//180                                         /**< The advertising timeout (in units of seconds). */
 
 #define APP_TIMER_PRESCALER             0                                           /**< Value of the RTC1 PRESCALER register. */
 #define APP_TIMER_OP_QUEUE_SIZE         4                                           /**< Size of timer operation queues. */
@@ -132,12 +136,25 @@ static void gap_params_init(void)
     uint32_t                err_code;
     ble_gap_conn_params_t   gap_conn_params;
     ble_gap_conn_sec_mode_t sec_mode;
-
+uint8_t device_addr[6];
+    char device_name[50],*string;
+    
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
 
+    
+    
+    get_mac_addr(device_addr);
+    memcpy(device_name,DEVICE_NAME,strlen(DEVICE_NAME));
+    device_name[strlen(DEVICE_NAME)] = '_';
+    
+    string = HexToStr(&device_addr[4]);
+    if(string!=NULL)
+    memcpy(&device_name[strlen(DEVICE_NAME)+1],&string[2],4);
+
+    
     err_code = sd_ble_gap_device_name_set(&sec_mode,
-                                          (const uint8_t *) DEVICE_NAME,
-                                          strlen(DEVICE_NAME));
+                                          (const uint8_t *) device_name,
+                                          strlen(device_name));
     APP_ERROR_CHECK(err_code);
 
     memset(&gap_conn_params, 0, sizeof(gap_conn_params));
@@ -558,21 +575,35 @@ static void uart_init(void)
  */
 static void advertising_init(void)
 {
-    uint32_t               err_code;
+     uint32_t               err_code;
     ble_advdata_t          advdata;
     ble_advdata_t          scanrsp;
     ble_adv_modes_config_t options;
 
+    ble_advdata_manuf_data_t   manuf_data;
+    uint8_t m_addl_adv_manuf_data[17] = {1,2,3,4,5,6,7,8,9,10};
+    
+    
+    manuf_data.company_identifier = 0x2211;
+    manuf_data.data.size          = 17;
+    manuf_data.data.p_data        = m_addl_adv_manuf_data;
+    
+    
     // Build advertising data struct to pass into @ref ble_advertising_init.
     memset(&advdata, 0, sizeof(advdata));
     advdata.name_type          = BLE_ADVDATA_FULL_NAME;
     advdata.include_appearance = false;
-    advdata.flags              = BLE_GAP_ADV_FLAGS_LE_ONLY_LIMITED_DISC_MODE;
-
+    advdata.flags              = BLE_GAP_ADV_FLAGS_LE_ONLY_GENERAL_DISC_MODE;
+    //advdata.p_manuf_specific_data = &manuf_data;
+    
+    
     memset(&scanrsp, 0, sizeof(scanrsp));
-    scanrsp.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
-    scanrsp.uuids_complete.p_uuids  = m_adv_uuids;
+//    scanrsp.uuids_complete.uuid_cnt = sizeof(m_adv_uuids) / sizeof(m_adv_uuids[0]);
+//    scanrsp.uuids_complete.p_uuids  = m_adv_uuids;
 
+    scanrsp.p_manuf_specific_data = &manuf_data;  //增加此操作,解决广播名被切掉问题.
+    
+    
     memset(&options, 0, sizeof(options));
     options.ble_adv_fast_enabled  = true;
     options.ble_adv_fast_interval = APP_ADV_INTERVAL;
